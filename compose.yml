@@ -5,20 +5,22 @@ services:
       - 80:80
     volumes:
       - ./apache/tarefa1.conf:/etc/apache2/sites-enabled/tarefa1.conf
-      - ./exemplo.lan:/opt/web/exemplo.lan
-
+      - ./exemplo.lan/htdocs:/opt/web/exemplo.lan/htdocs
+      - ./exemplo.lan/datos:/opt/web/exemplo.lan/datos
     networks:
       redeapache:
         aliases:
-          - exemplo.lan
           - www.exemplo.lan
+          - exemplo.lan
+          - eq1.exemplo.lan
+
     develop:
       watch:
         - path: ./apache/test1.conf
           action: restart
 
   cliente:
-    build: brunosct/debian12-cliente-firefox
+    image: brunosct/debian12-cliente-firefox
     hostname: cliente
     networks:
       - redeapache
